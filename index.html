@@ -4,29 +4,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="css/base.css">
+  <title>Slide With Browser | simpler & handier choice for presentations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
   <link rel="shortcut icon" href="https://icons.iconarchive.com/icons/ionic/ionicons/128/albums-sharp-icon.png"
     type="image/x-icon">
+  <link rel="stylesheet" href="css/base.css">
 </head>
 
 <body>
-  <div class="hideMe">
-    <h1>Horizontal full-screen slider<span>Mousewheel, nav dot, drag/throw &amp; arrow controls</span></h1>
-    <svg id="leftArrow" class="arrow" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 100 100">
-      <g stroke-linejoin="round" stroke-linecap="round">
-        <circle r="46" cx="50" cy="50" />
-        <polyline points="60 25, 30 50, 60 75"></polyline>
-      </g>
-    </svg>
-    <svg id="rightArrow" class="arrow" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 100 100">
-      <g stroke-linejoin="round" stroke-linecap="round">
-        <circle r="46" cx="50" cy="50" />
-        <polyline points="40 25, 70 50, 40 75"></polyline>
-      </g>
-    </svg>
-    <div id="masterWrap">
-      <div id="panelWrap">
+  <div class="container">
+    <header>
+      <h1>Horizontal full-screen slider<span>Mousewheel, nav dot, drag/throw &amp; arrow controls</span></h1>
+    </header>
+
+    <aside>
+      <svg id="previous" class="contoller" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <g stroke-linejoin="round" stroke-linecap="round">
+          <circle r="46" cx="50" cy="50" />
+          <polyline points="60 25, 30 50, 60 75"></polyline>
+        </g>
+      </svg>
+      <svg id="next" class="contoller" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <g stroke-linejoin="round" stroke-linecap="round">
+          <circle r="46" cx="50" cy="50" />
+          <polyline points="40 25, 70 50, 40 75"></polyline>
+        </g>
+      </svg>
+    </aside>
+
+    <main>
+      <div class="content">
         <section>
           <h3>Controls</h3>
           <p>You can control the slider in 4 ways</p>
@@ -89,28 +100,36 @@
           </div>
         </section>
         <section>
-          <h3>Bottom dot animation</h3>
-          <p>See that animation on the bottom with the navigation dots and rotating slide titles? Its time is based on
-            the position of the draggable element. Keep an eye on it as you drag or the slides animate.</p>
+          <h3>Topic</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum nisi quis magna convallis, ac
+            tempus elit varius. Nullam consectetur velit at felis pulvinar, in consequat arcu ultricies. Phasellus nec
+            sem eget dolor consequat tempus. Fusce eget sapien vehicula, rutrum urna nec, aliquet quam. Vestibulum
+            bibendum quam id sapien volutpat, ut ultricies mi consectetur. Aliquam erat volutpat. Donec ac nulla vitae
+            sem lacinia condimentum. Suspendisse id mi eu sem vestibulum tristique."</p>
         </section>
         <section>
-          <h3>Bottom dot animation</h3>
-          <p>See that animation on the bottom with the navigation dots and rotating slide titles? Its time is based on
-            the position of the draggable element. Keep an eye on it as you drag or the slides animate.</p>
+          <h3>Topic</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum nisi quis magna convallis, ac
+            tempus elit varius. Nullam consectetur velit at felis pulvinar, in consequat arcu ultricies. Phasellus nec
+            sem eget dolor consequat tempus. Fusce eget sapien vehicula, rutrum urna nec, aliquet quam. Vestibulum
+            bibendum quam id sapien volutpat, ut ultricies mi consectetur. Aliquam erat volutpat. Donec ac nulla vitae
+            sem lacinia condimentum. Suspendisse id mi eu sem vestibulum tristique."</p>
         </section>
       </div>
+    </main>
+
+    <div class="indicator-group">
     </div>
-    <div class="dots">
-    </div>
-    <div class="titleWrap">
+
+    <div class="title-group">
       <div class="title">
-        1. Controlling the slider
+        0. usage instructions
       </div>
       <div class="title">
-        2. Bottom dot animation
+        1. Title of Page 1
       </div>
       <div class="title">
-        3. Bottom dot animation
+        2. Title of Page 2
       </div>
     </div>
   </div>

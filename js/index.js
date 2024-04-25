@@ -25,8 +25,8 @@ function render() {
 }
 
 const slides = document.querySelectorAll("section")
-const container = document.querySelector("#panelWrap")
-const dots = document.querySelector(".dots")
+const container = document.querySelector(".content")
+const dots = document.querySelector(".indicator-group")
 const navDots = []
 
 let iw = window.innerWidth
@@ -48,8 +48,8 @@ const arrowAnim = new TimelineMax({
   repeatDelay: 1
 })
 
-document.querySelector("#leftArrow").addEventListener("click", slideAnim)
-document.querySelector("#rightArrow").addEventListener("click", slideAnim)
+document.querySelector("#previous").addEventListener("click", slideAnim)
+document.querySelector("#next").addEventListener("click", slideAnim)
 
 // set slides background colors and create the nav dots
 for (let i = 0; i < slides.length; i++) {
@@ -57,7 +57,7 @@ for (let i = 0; i < slides.length; i++) {
     backgroundColor: colorArray[i]
   })
   var newDot = document.createElement("div")
-  newDot.className = "dot"
+  newDot.className = "indicator"
   newDot.index = i
   navDots.push(newDot)
   newDot.addEventListener("click", slideAnim)
@@ -129,7 +129,7 @@ arrowAnim.to("#caret", 0.5, {
 })
 
 // get elements positioned
-TweenMax.set(".dots, .titleWrap", {
+TweenMax.set(".indicator-group, .titleWrap", {
   xPercent: -50
 })
 TweenMax.set(".arrow", {
@@ -143,7 +143,7 @@ TweenMax.set(".title", {
 var dotAnim = new TimelineMax({
   paused: true
 })
-dotAnim.staggerTo(".dot", 1, {
+dotAnim.staggerTo(".indicator", 1, {
   scale: 2.1,
   rotation: 0.1,
   yoyo: true,
@@ -163,7 +163,7 @@ var dragMe = Draggable.create(container, {
   edgeResistance: 1,
   snap: offsets,
   throwProps: true,
-  bounds: "#masterWrap",
+  bounds: "main",
   onDrag: tweenDot,
   onThrowUpdate: tweenDot,
   onDragEnd: slideAnim,
@@ -185,10 +185,10 @@ function slideAnim(e) {
       return
     }
     // up/down arrow clicks
-    if (this.id === "leftArrow" || this.id === "rightArrow") {
-      activeSlide = this.id === "rightArrow" ? (activeSlide += 1) : (activeSlide -= 1)
+    if (this.id === "previous" || this.id === "next") {
+      activeSlide = this.id === "next" ? (activeSlide += 1) : (activeSlide -= 1)
       // click on a dot
-    } else if (this.className === "dot") {
+    } else if (this.className === "indicator") {
       activeSlide = this.index
       // scrollwheel
     } else {
@@ -215,7 +215,7 @@ function slideAnim(e) {
 function sizeIt() {
   offsets = []
   iw = window.innerWidth
-  TweenMax.set("#panelWrap", {
+  TweenMax.set(".content", {
     width: slides.length * iw
   })
   TweenMax.set(slides, {
@@ -230,7 +230,7 @@ function sizeIt() {
   dragMe[0].vars.snap = offsets
 }
 
-TweenMax.set(".hideMe", {
+TweenMax.set(".container", {
   opacity: 1
 })
 window.addEventListener("wheel", slideAnim)
