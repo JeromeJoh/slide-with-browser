@@ -3,7 +3,7 @@
 
 <div align="center">
   <a href="">
-    <img src="https://icons.iconarchive.com/icons/icons8/windows-8/128/Very-Basic-Frame-icon.png" alt="Logo" width="80" height="80">
+    <img src="https://icons.iconarchive.com/icons/ionic/ionicons/128/albums-sharp-icon.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Slide With Browser</h3>
@@ -20,18 +20,24 @@
 
 ### About The Project
 
-This project is inspired by [hadicraft videos about Yugioh cards](https://www.bilibili.com/video/BV1RW41167n8/?share_source=copy_web&vd_source=140f65e67f08ae8d9864ad5c35758947). Several same cards are carved out different parts, and the parts are glued together in a specific order, finnaly presenting a modle with 3D effect.Here I want achieve this kind of effect by using HTML, CSS and JS.
+A fundamental & handy demo for presenting slideshows in the browser.
 
-## Installation
+### Installation
 
 Run this demo on a [local server](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server).
 
-## Contact
+### Usage
+
+1. clone a section element to add a new page;
+2. replace the example content with your own;
+3. controll the slides in 4 ways: click buttons on both sides, click navigation dots, drag the page, scroll mouse wheel.
+
+### Contact
 
 Author: [jerome200069@outlook.com](mailto:jerome200069@outlook.com)
 
 Demo Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
-## License
+### License
 
 [MIT](LICENSE)
