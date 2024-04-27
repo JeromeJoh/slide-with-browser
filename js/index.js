@@ -6,8 +6,7 @@ const dur = 0.5
 let offsets = []
 let oldSlide = 0
 let activeSlide = 0
-
-
+let iw = window.innerWidth
 
 // initialize page
 const init = () => {
@@ -15,134 +14,79 @@ const init = () => {
   bindEvents()
 }
 
-function bindEvents() {
-
-  // keyboard event <->
-}
-
 function render() {
+  // set slides background colors and create the nav dots
+  const fragment = document.createDocumentFragment()
 
+  for (let i = 0; i < slides.length; i++) {
+    TweenMax.set(slides[i], {
+      backgroundColor: colorArray[i]
+    })
+    const dot = document.createElement("div")
+    dot.className = "indicator"
+    dot.index = i
+    dot.addEventListener("click", slideAnim)
+    fragment.appendChild(dot)
+  }
+
+  dots.appendChild(fragment)
+
+  // get elements positioned
+  TweenMax.set(".indicator-group, .title-group", {
+    xPercent: -50
+  })
+  TweenMax.set(".arrow", {
+    yPercent: -50
+  })
+  TweenMax.set(".title", {
+    y: 30
+  })
 }
 
+function bindEvents() {
+  window.addEventListener("resize", sizeIt)
+  window.addEventListener("wheel", slideAnim)
+  document.querySelector("#previous").addEventListener("click", slideAnim)
+  document.querySelector("#next").addEventListener("click", slideAnim)
+
+  // const indicators = document.querySelectorAll(".indicator")
+  // for (let i = 0; i < indicators.length; i++) {
+  //   indicators[i].addEventListener("click", slideAnim)
+  // }
+}
+
+// resize the page
+function sizeIt() {
+  offsets = []
+  iw = window.innerWidth
+  TweenMax.set(".content", {
+    width: slides.length * iw
+  })
+  TweenMax.set(slides, {
+    width: iw
+  })
+  for (let i = 0; i < slides.length; i++) {
+    offsets.push(-slides[i].offsetLeft)
+  }
+  TweenMax.set(container, {
+    x: offsets[activeSlide]
+  })
+  dragMe[0].vars.snap = offsets
+}
+
+// DOM Elements
 const slides = document.querySelectorAll("section")
 const container = document.querySelector(".content")
 const dots = document.querySelector(".indicator-group")
-const navDots = []
 
-let iw = window.innerWidth
+init()
 
-const mouseAnim = new TimelineMax({
-  repeat: -1,
-  repeatDelay: 1
-})
-const handAnim = new TimelineMax({
-  repeat: -1,
-  repeatDelay: 1
-})
-const cursorAnim = new TimelineMax({
-  repeat: -1,
-  repeatDelay: 1
-})
-const arrowAnim = new TimelineMax({
-  repeat: -1,
-  repeatDelay: 1
-})
-
-document.querySelector("#previous").addEventListener("click", slideAnim)
-document.querySelector("#next").addEventListener("click", slideAnim)
-
-// set slides background colors and create the nav dots
-for (let i = 0; i < slides.length; i++) {
-  TweenMax.set(slides[i], {
-    backgroundColor: colorArray[i]
-  })
-  var newDot = document.createElement("div")
-  newDot.className = "indicator"
-  newDot.index = i
-  navDots.push(newDot)
-  newDot.addEventListener("click", slideAnim)
-  dots.appendChild(newDot)
-}
-
-// icon animations for slide 1
-mouseAnim.staggerFromTo("#mouseRings circle", 0.8, {
-  attr: {
-    r: 10
-  }
-}, {
-  attr: {
-    r: 40
-  }
-}, 0.25)
-mouseAnim.staggerFromTo("#mouseRings circle", 0.4, {
-  opacity: 0
-}, {
-  opacity: 1
-}, 0.25, 0)
-mouseAnim.staggerFromTo("#mouseRings circle", 0.4, {
-  opacity: 1
-}, {
-  opacity: 0
-}, 0.25, 0.4)
-
-handAnim.to("#hand", 0.75, {
-  rotation: -10,
-  transformOrigin: "center bottom"
-})
-handAnim.to("#hand", 0.5, {
-  rotation: 14,
-  ease: Power3.easeInOut
-})
-handAnim.to("#hand", 1, {
-  rotation: 0,
-  transformOrigin: "center bottom"
-})
-
-cursorAnim.to("#cursor", 0.25, {
-  x: -22
-})
-cursorAnim.staggerTo("#iconCircles circle", 0.5, {
-  attr: {
-    r: 6
-  }
-}, 0.15, "expand")
-cursorAnim.to("#cursor", 1.1, {
-  x: 40
-}, "expand")
-cursorAnim.to("#cursor", 0.75, {
-  x: 0
-}, "contract")
-cursorAnim.to("#iconCircles circle", 0.5, {
-  attr: {
-    r: 4
-  }
-}, "contract")
-
-arrowAnim.to("#caret", 0.5, {
-  attr: {
-    points: "60 30, 35 50, 60 70"
-  },
-  repeat: 3,
-  yoyo: true,
-  ease: Power2.easeInOut,
-  repeatDelay: 0.25
-})
-
-// get elements positioned
-TweenMax.set(".indicator-group, .titleWrap", {
-  xPercent: -50
-})
-TweenMax.set(".arrow", {
-  yPercent: -50
-})
-TweenMax.set(".title", {
-  y: 30
-})
 
 // lower screen animation with nav dots and rotating titles
-var dotAnim = new TimelineMax({
+const dotAnim = new TimelineMax({
   paused: true
 })
+
 dotAnim.staggerTo(".indicator", 1, {
   scale: 2.1,
   rotation: 0.1,
@@ -150,15 +94,17 @@ dotAnim.staggerTo(".indicator", 1, {
   repeat: 1,
   ease: Linear.easeNone
 }, 1)
+
 dotAnim.to(".title", slides.length + 1, {
   y: -(slides.length * 30),
   rotation: 0.01,
   ease: Linear.easeNone
 }, 0)
+
 dotAnim.time(1)
 
 // make the whole thing draggable
-var dragMe = Draggable.create(container, {
+const dragMe = Draggable.create(container, {
   type: "x",
   edgeResistance: 1,
   snap: offsets,
@@ -208,33 +154,7 @@ function slideAnim(e) {
       onUpdate: tweenDot
     })
   }
-
 }
-
-// update the draggable element snap points
-function sizeIt() {
-  offsets = []
-  iw = window.innerWidth
-  TweenMax.set(".content", {
-    width: slides.length * iw
-  })
-  TweenMax.set(slides, {
-    width: iw
-  })
-  for (let i = 0; i < slides.length; i++) {
-    offsets.push(-slides[i].offsetLeft)
-  }
-  TweenMax.set(container, {
-    x: offsets[activeSlide]
-  })
-  dragMe[0].vars.snap = offsets
-}
-
-TweenMax.set(".container", {
-  opacity: 1
-})
-window.addEventListener("wheel", slideAnim)
-window.addEventListener("resize", sizeIt)
 
 // update dot animation when dragger moves
 function tweenDot() {
